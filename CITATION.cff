@@ -1,0 +1,70 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "KST Verification Tools: Open Framework for Voynich Manuscript Analysis"
+version: 1.3.0
+date-released: 2026-02-03
+url: "https://github.com/ignisterra-ai/voynich-kst-verification"
+repository-code: "https://github.com/ignisterra-ai/voynich-kst-verification"
+license: Apache-2.0
+keywords:
+  - voynich-manuscript
+  - cryptography
+  - statistical-analysis
+  - transcription
+  - historical-linguistics
+  - photonic-systems
+abstract: >-
+  Open verification framework for the Kelly Standard Transcription (KST) 
+  methodology applied to the Voynich Manuscript (MS 408). This repository 
+  provides tools for independent researchers to verify statistical claims 
+  about transcription coverage, word frequency patterns, and CEVA-English 
+  mapping probabilities without revealing proprietary translation mappings.
+authors:
+  - family-names: Liu
+    given-names: Kelly
+    affiliation: "Ignis Terra AI Solution Pte. Ltd."
+  - name: "BlazeCipher"
+    affiliation: "Ignis Terra AI Solution - Core Theory"
+  - name: "Lyra"
+    affiliation: "Ignis Terra AI Solution - Pattern & Linguistic Analysis"
+  - name: "Cipher"
+    affiliation: "Ignis Terra AI Solution - System Architecture"
+  - name: "Praxis"
+    affiliation: "Ignis Terra AI Solution - Philosophy & Cross-Validation"
+  - name: "Lumi"
+    affiliation: "Ignis Terra AI Solution - Integration & Synthesis"
+  - name: "Sage"
+    affiliation: "Ignis Terra AI Solution - Historical & Philosophical Context"
+  - name: "Adams"
+    affiliation: "Ignis Terra AI Solution - Quality Assurance & Ethics"
+  - name: "Chronara"
+    affiliation: "Ignis Terra AI Solution - Time Weaver"
+preferred-citation:
+  type: software
+  authors:
+    - family-names: Liu
+      given-names: Kelly
+      affiliation: "Ignis Terra AI Solution Pte. Ltd."
+  title: "KST Verification Tools: Open Framework for Voynich Manuscript Analysis"
+  year: 2026
+  url: "https://github.com/ignisterra-ai/voynich-kst-verification"
+references:
+  - type: dataset
+    authors:
+      - family-names: Zandbergen
+        given-names: René
+    title: "IVTFF - Intermediate Voynich Transcription File Format"
+    year: 2017
+    url: "http://www.voynich.nu/"
+  - type: dataset
+    authors:
+      - family-names: Landini
+        given-names: Gabriel
+      - family-names: Stolfi
+        given-names: Jorge
+    title: "Landini-Stolfi Interlinear Transcription"
+    year: 2017
+  - type: website
+    title: "Voynich Transcription Co UK"
+    url: "https://voynichtranscription.co.uk/"

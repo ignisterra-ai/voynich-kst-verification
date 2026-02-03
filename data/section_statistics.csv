@@ -1,0 +1,9 @@
+Section,Pages,Lines,Characters_Approx,Words_Approx,Coverage_Claim
+Herbal,f1r-f57r + f65-f66,1558,50841,9992,99.9%
+Recipes,f103r-f116v,1086,57039,10710,99.9%
+Balneo,f75r-f84v,917,34679,6866,99.9%
+Pharma,f88r-f102v2,622,19089,3655,99.9%
+Astro,f58r-f70v,431,11056,2188,99.9%
+Cosmological,f57v + f85-f87 + fRos,393,13351,2649,99.9%
+Zodiac,f67v-f73v,383,8421,1578,99.9%
+TOTAL,,5390,194476,37638,99.9%

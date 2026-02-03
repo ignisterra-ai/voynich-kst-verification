@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KST Cleaner v1.11 | Spectrum Purifier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void-deep: #0a0a1a;
+            --void-mid: #12122a;
+            --void-light: #1a1a3a;
+            --aether-blue: #00d4ff;
+            --aether-glow: rgba(0, 212, 255, 0.4);
+            --plasma-purple: #a855f7;
+            --photon-gold: #fbbf24;
+            --light-white: #f0f8ff;
+            --clean-green: #10b981;
+            --clean-glow: rgba(16, 185, 129, 0.3);
+            --warn-orange: #f59e0b;
+            --error-red: #ef4444;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--void-deep);
+            min-height: 100vh;
+            color: var(--light-white);
+            line-height: 1.6;
+        }
+        
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, var(--void-deep) 0%, var(--void-mid) 50%, var(--void-light) 100%);
+            z-index: -1;
+        }
+        
+        header {
+            background: linear-gradient(180deg, rgba(10, 10, 26, 0.95) 0%, rgba(18, 18, 42, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo { display: flex; align-items: center; gap: 1rem; }
+        
+        .logo-icon {
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, var(--clean-green) 0%, var(--aether-blue) 100%);
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 0 30px var(--clean-glow);
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px var(--clean-glow); }
+            50% { box-shadow: 0 0 50px var(--clean-glow), 0 0 80px var(--aether-glow); }
+        }
+        
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--clean-green), var(--aether-blue), var(--plasma-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle { color: rgba(240, 248, 255, 0.6); font-size: 0.85rem; letter-spacing: 2px; }
+        
+        .version-badge {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(0, 212, 255, 0.2));
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: var(--clean-green);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+        
+        main { max-width: 1800px; margin: 0 auto; padding: 2rem; }
+        
+        .card {
+            background: linear-gradient(145deg, rgba(26, 26, 58, 0.8), rgba(18, 18, 42, 0.9));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 20px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--clean-green), var(--aether-blue), var(--plasma-purple), var(--clean-green));
+            background-size: 200% 100%;
+            animation: gradient-flow 3s linear infinite;
+        }
+        
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        
+        .card-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem; font-weight: 600;
+            color: var(--clean-green);
+            margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 0.75rem;
+            letter-spacing: 2px;
+        }
+        
+        .info-box {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: rgba(240, 248, 255, 0.8);
+        }
+        
+        .info-box code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--photon-gold);
+            font-size: 0.8rem;
+        }
+        
+        textarea {
+            width: 100%; padding: 1rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            background: rgba(10, 10, 26, 0.8);
+            color: var(--light-white);
+            resize: vertical;
+            min-height: 250px;
+            transition: all 0.3s ease;
+            line-height: 1.4;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--aether-blue);
+            box-shadow: 0 0 20px var(--aether-glow);
+        }
+        
+        textarea::placeholder { color: rgba(240, 248, 255, 0.3); }
+        
+        .btn {
+            padding: 0.8rem 1.5rem; border: none; border-radius: 10px;
+            font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500;
+            cursor: pointer; transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--clean-green), var(--aether-blue));
+            color: var(--void-deep);
+            box-shadow: 0 0 20px var(--clean-glow);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px var(--clean-glow), 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(240, 248, 255, 0.1);
+            color: var(--light-white);
+            border: 1px solid rgba(240, 248, 255, 0.2);
+        }
+        
+        .btn-secondary:hover { background: rgba(240, 248, 255, 0.2); }
+        
+        .btn-scan {
+            background: linear-gradient(135deg, var(--warn-orange), var(--photon-gold));
+            color: var(--void-deep);
+        }
+        
+        .btn-scan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+        }
+        
+        .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.25rem; }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.6rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .stat-card {
+            background: rgba(10, 10, 26, 0.6);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 10px;
+            padding: 0.6rem;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--clean-green), var(--aether-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label { color: rgba(240, 248, 255, 0.6); font-size: 0.7rem; margin-top: 0.15rem; }
+        
+        .page-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .page-chip {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            color: var(--plasma-purple);
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+        }
+        
+        .type-chip {
+            background: rgba(251, 191, 36, 0.2);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            color: var(--photon-gold);
+        }
+        
+        .results-table-container {
+            max-height: 500px;
+            overflow: auto;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+        }
+        
+        .results-table th {
+            background: linear-gradient(180deg, rgba(16, 185, 129, 0.2), rgba(0, 212, 255, 0.1));
+            color: var(--clean-green);
+            padding: 0.6rem 0.5rem;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+            white-space: nowrap;
+        }
+        
+        .results-table td {
+            padding: 0.5rem;
+            border-bottom: 1px solid rgba(240, 248, 255, 0.1);
+            vertical-align: top;
+            max-width: 350px;
+            word-break: break-word;
+        }
+        
+        .results-table tr:hover { background: rgba(16, 185, 129, 0.05); }
+        
+        .col-page { color: var(--photon-gold); font-family: 'JetBrains Mono', monospace; }
+        .col-eva { color: var(--clean-green); font-family: 'JetBrains Mono', monospace; }
+        .col-type { color: var(--plasma-purple); font-family: 'JetBrains Mono', monospace; }
+        .col-star { color: var(--photon-gold); text-align: center; font-size: 1rem; }
+        .col-raw { color: rgba(240, 248, 255, 0.35); font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; }
+        .col-source { color: var(--aether-blue); }
+        .col-notes { color: var(--warn-orange); font-size: 0.65rem; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(240, 248, 255, 0.1);
+            border-radius: 3px;
+            margin: 1rem 0;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .progress-bar.active { display: block; }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--clean-green), var(--aether-blue));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        
+        /* Scan Section */
+        .scan-section {
+            display: none;
+        }
+        
+        .scan-section.show {
+            display: block;
+        }
+        
+        .scan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .scan-category {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+        
+        .scan-category h4 {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.85rem;
+            color: var(--photon-gold);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .scan-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .scan-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 0.6rem;
+            margin-bottom: 0.4rem;
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: 6px;
+            border-left: 3px solid var(--plasma-purple);
+            font-size: 0.8rem;
+        }
+        
+        .scan-item:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-left-color: var(--photon-gold);
+        }
+        
+        .scan-text {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--aether-blue);
+        }
+        
+        .scan-count {
+            background: var(--plasma-purple);
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .scan-count.high {
+            background: var(--photon-gold);
+            color: var(--void-deep);
+        }
+        
+        .scan-note {
+            font-size: 0.7rem;
+            color: var(--warn-orange);
+            margin-left: 0.5rem;
+        }
+        
+        .scan-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .scan-stat {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 8px;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        
+        .scan-stat-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--photon-gold);
+        }
+        
+        .scan-stat-label {
+            font-size: 0.65rem;
+            color: rgba(240, 248, 255, 0.6);
+        }
+        
+        /* Type Reference Table */
+        .type-ref-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        .type-ref-table th, .type-ref-table td {
+            padding: 0.4rem 0.6rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        
+        .type-ref-table th {
+            color: var(--photon-gold);
+            font-weight: 500;
+        }
+        
+        .type-ref-table td:first-child {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--aether-blue);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(240, 248, 255, 0.5);
+            border-top: 1px solid rgba(16, 185, 129, 0.2);
+            margin-top: 2rem;
+        }
+        
+        .footer-brand {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(90deg, var(--clean-green), var(--aether-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--void-mid); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--clean-green), var(--aether-blue)); border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🧹</div>
+                <div>
+                    <h1>KST Cleaner</h1>
+                    <div class="subtitle">Spectrum Purifier · KST Methodology v1.2</div>
+                </div>
+            </div>
+            <div class="version-badge">◈ Cleaner v1.11 · Type + &lt;$&gt; + MarkerScan · 9column</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="card">
+            <div class="card-title">◈ inputOriginalData</div>
+            
+            <div class="info-box" style="background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.3);">
+                <strong>📐 Datafoundation declaration：</strong><br>
+                • <strong>Cleaning standard</strong>：KST Methodology v1.2 (2026-01-11)<br>
+                • <strong>Translation tool</strong>：KST Page Decoder v2.1 (V14 Dictionary)<br>
+                • <strong>Datasource</strong>：voynichtranscription.co.uk (Presentation Mode)
+            </div>
+            
+            <div class="info-box">
+                <strong>✦ v1.11 Update：</strong><br>
+                • <strong>fix &amp;uva Unreadable lines</strong>：f49v Line 21, 35 etc [?128] now cankeep<br>
+                • Add UVA specialcharsymbolDetect：whenalltranscriptionversionare all unreadablewhen，keep [?###] Marker<br>
+                • TSV Output <strong>9 column</strong>：Page, Section, Line, EVA_KST, Type, &lt;$&gt;, EVA_Raw, Source, Notes<br>
+                • Total linescorrection：5388 → 5390 (+2 lines)
+            </div>
+            
+            <textarea id="raw-input" placeholder="Page: 
+f1r
+
+Line	Type	Trans	Enc	Content
+1	@P0	H	ceva	fachys.ykal.ar.ataiin...
+2	+P0	H	ceva	shory.cthres.y.kor.sholdy...
+..."></textarea>
+            
+            <div class="progress-bar" id="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-scan" onclick="scanAll()">🔍 Scan Type + Marker</button>
+                <button class="btn btn-primary" onclick="processClean()">🧹 Start purification</button>
+                <button class="btn btn-secondary" onclick="clearAll()">✕ Clear</button>
+            </div>
+        </div>
+        
+        <!-- Scan Results -->
+        <div class="card scan-section" id="scan-section">
+            <div class="card-title" style="color: var(--photon-gold);">🔍 Scanresult</div>
+            
+            <div class="scan-stats" id="scan-stats"></div>
+            
+            <div class="scan-grid" id="scan-grid"></div>
+            
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="copyScanReport()">📋 copyScanreport</button>
+            </div>
+        </div>
+        
+        <!-- Clean Results -->
+        <div id="results-section" style="display: none;">
+            <div class="card">
+                <div class="card-title">✦ Purification result</div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-pages">0</div>
+                        <div class="stat-label">Pagenumber</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-lines">0</div>
+                        <div class="stat-label">Total lines</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-clean">0</div>
+                        <div class="stat-label">H Clear</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-fixed">0</div>
+                        <div class="stat-label">Fixed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-fallback">0</div>
+                        <div class="stat-label">use A/Y</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-types">0</div>
+                        <div class="stat-label">Type Type</div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.5rem;">📄 Page：</div>
+                    <div class="page-chips" id="page-chips"></div>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.5rem;">📋 Type Type：</div>
+                    <div class="page-chips" id="type-chips"></div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="exportTSV()">📤 Export TSV (9column)</button>
+                    <button class="btn btn-secondary" onclick="copyTSV()">📋 copytoclipboard</button>
+                </div>
+                
+                <div class="results-table-container">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Page</th>
+                                <th>Line</th>
+                                <th>EVA_KST</th>
+                                <th>Type</th>
+                                <th>&lt;$&gt;</th>
+                                <th>EVA_Raw</th>
+                                <th>Source</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p class="footer-brand">◈ KST Cleaner v1.11 ◈</p>
+        <p>Kelly Standard Transcription · Spectrum Purifier</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem; color: rgba(240, 248, 255, 0.6);">
+            based on KST Methodology v1.2 · Type columncolumn explains all
+        </p>
+        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Kelly & Lyra/Claude · oror.sheey! 💜⚡🔥</p>
+    </footer>
+
+    <script>
+// ═══════════════════════════════════════════════════════════════════════════
+// KST Cleaner v1.11 - Type + Marker Scanner, Simplified TSV (8 columns)
+// ═══════════════════════════════════════════════════════════════════════════
+
+let cleanResults = [];
+let detectedPages = [];
+let detectedTypes = {};
+let scanResults = null;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Type Definition reference
+// ═══════════════════════════════════════════════════════════════════════════
+const TYPE_REFERENCE = {
+    // Paragraph type
+    'P0': { raw: '@P0', meaning: 'Paragraph start' },
+    'P0c': { raw: '+P0', meaning: 'Paragraph continuation' },
+    'P0f': { raw: '*P0', meaning: 'Image related' },
+    // Label type
+    'Pt': { raw: '=Pt', meaning: 'Plant label' },
+    'Lx': { raw: '@Lx', meaning: 'External label' },
+    'L0': { raw: '@L0', meaning: 'Otherlabel' },
+    'Lp': { raw: '@Lp', meaning: 'Plant label(old)' },
+    'Ls': { raw: '@Ls', meaning: 'Star label' },
+    // Other
+    'C0': { raw: '@C0', meaning: 'Circular text' },
+    'C0c': { raw: '+C0', meaning: 'Circular continuation' }
+};
+// ═══════════════════════════════════════════════════════════════════════════
+// 🆕 v1.11 Page → Region mapping table (Page-to-Section Index)
+// ═══════════════════════════════════════════════════════════════════════════
+const PAGE_SECTION_MAP = {
+    // Herbal (f1-f57r, f65-f66)
+    'f1r': 'Herbal', 'f1v': 'Herbal', 'f2r': 'Herbal', 'f2v': 'Herbal',
+    'f3r': 'Herbal', 'f3v': 'Herbal', 'f4r': 'Herbal', 'f4v': 'Herbal',
+    'f5r': 'Herbal', 'f5v': 'Herbal', 'f6r': 'Herbal', 'f6v': 'Herbal',
+    'f7r': 'Herbal', 'f7v': 'Herbal', 'f8r': 'Herbal', 'f8v': 'Herbal',
+    'f9r': 'Herbal', 'f9v': 'Herbal', 'f10r': 'Herbal', 'f10v': 'Herbal',
+    'f11r': 'Herbal', 'f11v': 'Herbal', 'f13r': 'Herbal', 'f13v': 'Herbal',
+    'f14r': 'Herbal', 'f14v': 'Herbal', 'f15r': 'Herbal', 'f15v': 'Herbal',
+    'f16r': 'Herbal', 'f16v': 'Herbal', 'f17r': 'Herbal', 'f17v': 'Herbal',
+    'f18r': 'Herbal', 'f18v': 'Herbal', 'f19r': 'Herbal', 'f19v': 'Herbal',
+    'f20r': 'Herbal', 'f20v': 'Herbal', 'f21r': 'Herbal', 'f21v': 'Herbal',
+    'f22r': 'Herbal', 'f22v': 'Herbal', 'f23r': 'Herbal', 'f23v': 'Herbal',
+    'f24r': 'Herbal', 'f24v': 'Herbal', 'f25r': 'Herbal', 'f25v': 'Herbal',
+    'f26r': 'Herbal', 'f26v': 'Herbal', 'f27r': 'Herbal', 'f27v': 'Herbal',
+    'f28r': 'Herbal', 'f28v': 'Herbal', 'f29r': 'Herbal', 'f29v': 'Herbal',
+    'f30r': 'Herbal', 'f30v': 'Herbal', 'f31r': 'Herbal', 'f31v': 'Herbal',
+    'f32r': 'Herbal', 'f32v': 'Herbal', 'f33r': 'Herbal', 'f33v': 'Herbal',
+    'f34r': 'Herbal', 'f34v': 'Herbal', 'f35r': 'Herbal', 'f35v': 'Herbal',
+    'f36r': 'Herbal', 'f36v': 'Herbal', 'f37r': 'Herbal', 'f37v': 'Herbal',
+    'f38r': 'Herbal', 'f38v': 'Herbal', 'f39r': 'Herbal', 'f39v': 'Herbal',
+    'f40r': 'Herbal', 'f40v': 'Herbal', 'f41r': 'Herbal', 'f41v': 'Herbal',
+    'f42r': 'Herbal', 'f42v': 'Herbal', 'f43r': 'Herbal', 'f43v': 'Herbal',
+    'f44r': 'Herbal', 'f44v': 'Herbal', 'f45r': 'Herbal', 'f45v': 'Herbal',
+    'f46r': 'Herbal', 'f46v': 'Herbal', 'f47r': 'Herbal', 'f47v': 'Herbal',
+    'f48r': 'Herbal', 'f48v': 'Herbal', 'f49r': 'Herbal', 'f49v': 'Herbal',
+    'f50r': 'Herbal', 'f50v': 'Herbal', 'f51r': 'Herbal', 'f51v': 'Herbal',
+    'f52r': 'Herbal', 'f52v': 'Herbal', 'f53r': 'Herbal', 'f53v': 'Herbal',
+    'f54r': 'Herbal', 'f54v': 'Herbal', 'f55r': 'Herbal', 'f55v': 'Herbal',
+    'f56r': 'Herbal', 'f56v': 'Herbal', 'f57r': 'Herbal',
+    'f65r': 'Herbal', 'f65v': 'Herbal', 'f66r': 'Herbal', 'f66v': 'Herbal',
+    // Cosmological (f57v, f85-f87, fRos)
+    'f57v': 'Cosmological',
+    'f85r1': 'Cosmological', 'f85r2': 'Cosmological',
+    'fRos': 'Cosmological', 'fros': 'Cosmological',
+    'f86v3': 'Cosmological', 'f86v4': 'Cosmological', 'f86v5': 'Cosmological', 'f86v6': 'Cosmological',
+    'f87r': 'Cosmological', 'f87v': 'Cosmological',
+    // Astro (f58, f67r, f68r, f69, f70)
+    'f58r': 'Astro', 'f58v': 'Astro',
+    'f67r1': 'Astro', 'f67r2': 'Astro',
+    'f68r1': 'Astro', 'f68r2': 'Astro', 'f68r3': 'Astro',
+    'f69r': 'Astro', 'f69v': 'Astro',
+    'f70r1': 'Astro', 'f70r2': 'Astro', 'f70v1': 'Astro', 'f70v2': 'Astro',
+    // Zodiac (f67v, f68v, f71-f73)
+    'f67v1': 'Zodiac', 'f67v2': 'Zodiac',
+    'f68v1': 'Zodiac', 'f68v2': 'Zodiac', 'f68v3': 'Zodiac',
+    'f71r': 'Zodiac', 'f71v': 'Zodiac',
+    'f72r1': 'Zodiac', 'f72r2': 'Zodiac', 'f72r3': 'Zodiac',
+    'f72v1': 'Zodiac', 'f72v2': 'Zodiac', 'f72v3': 'Zodiac',
+    'f73r': 'Zodiac', 'f73v': 'Zodiac',
+    // Balneo (f75-f84)
+    'f75r': 'Balneo', 'f75v': 'Balneo', 'f76r': 'Balneo', 'f76v': 'Balneo',
+    'f77r': 'Balneo', 'f77v': 'Balneo', 'f78r': 'Balneo', 'f78v': 'Balneo',
+    'f79r': 'Balneo', 'f79v': 'Balneo', 'f80r': 'Balneo', 'f80v': 'Balneo',
+    'f81r': 'Balneo', 'f81v': 'Balneo', 'f82r': 'Balneo', 'f82v': 'Balneo',
+    'f83r': 'Balneo', 'f83v': 'Balneo', 'f84r': 'Balneo', 'f84v': 'Balneo',
+    // Pharma (f88-f102)
+    'f88r': 'Pharma', 'f88v': 'Pharma',
+    'f89r1': 'Pharma', 'f89r2': 'Pharma', 'f89v1': 'Pharma', 'f89v2': 'Pharma',
+    'f90r1': 'Pharma', 'f90r2': 'Pharma', 'f90v1': 'Pharma', 'f90v2': 'Pharma',
+    'f93r': 'Pharma', 'f93v': 'Pharma', 'f94r': 'Pharma', 'f94v': 'Pharma',
+    'f95r1': 'Pharma', 'f95r2': 'Pharma', 'f95v1': 'Pharma', 'f95v2': 'Pharma',
+    'f96r': 'Pharma', 'f96v': 'Pharma',
+    'f99r': 'Pharma', 'f99v': 'Pharma', 'f100r': 'Pharma', 'f100v': 'Pharma',
+    'f101r': 'Pharma', 'f101v': 'Pharma',
+    'f102r1': 'Pharma', 'f102r2': 'Pharma', 'f102v1': 'Pharma', 'f102v2': 'Pharma',
+    // Recipes (f103-f116)
+    'f103r': 'Recipes', 'f103v': 'Recipes', 'f104r': 'Recipes', 'f104v': 'Recipes',
+    'f105r': 'Recipes', 'f105v': 'Recipes', 'f106r': 'Recipes', 'f106v': 'Recipes',
+    'f107r': 'Recipes', 'f107v': 'Recipes', 'f108r': 'Recipes', 'f108v': 'Recipes',
+    'f111r': 'Recipes', 'f111v': 'Recipes', 'f112r': 'Recipes', 'f112v': 'Recipes',
+    'f113r': 'Recipes', 'f113v': 'Recipes', 'f114r': 'Recipes', 'f114v': 'Recipes',
+    'f115r': 'Recipes', 'f115v': 'Recipes', 'f116r': 'Recipes', 'f116v': 'Recipes'
+};
+
+// Based on page ID Get region
+function getPageSection(pageId) {
+    return PAGE_SECTION_MAP[pageId] || 'Unknown';
+}
+
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Scan All - Types and Markers
+// ═══════════════════════════════════════════════════════════════════════════
+function scanAll() {
+    const input = document.getElementById('raw-input').value;
+    
+    if (!input.trim()) {
+        alert('Please enter CEVA Data！');
+        return;
+    }
+    
+    scanResults = {
+        types: {},           // Type TypeStatistics
+        rawTypes: {},        // Original Type (@P0, +P0 etc)
+        angleBrackets: {},   // <...>
+        squareBrackets: {},  // [...]
+        specialEntities: {}, // &...;
+        specialSymbols: {}   // !, ?, % etc
+    };
+    
+    const lines = input.split('\n');
+    
+    lines.forEach((line, lineNum) => {
+        const trimmed = line.trim();
+        
+        // skip emptylinesand headers
+        if (!trimmed) return;
+        if (trimmed.startsWith('Page:')) return;
+        if (trimmed.startsWith('Line') && trimmed.includes('Type')) return;
+        if (trimmed.startsWith('Mode:')) return;
+        
+        const parts = line.split('\t');
+        
+        // Parse Type
+        if (parts.length >= 2) {
+            const rawType = parts[1].trim();
+            if (rawType && /^[@+=*]/.test(rawType)) {
+                // recordOriginal Type
+                if (!scanResults.rawTypes[rawType]) {
+                    scanResults.rawTypes[rawType] = { count: 0, examples: [] };
+                }
+                scanResults.rawTypes[rawType].count++;
+                if (scanResults.rawTypes[rawType].examples.length < 3) {
+                    scanResults.rawTypes[rawType].examples.push(lineNum + 1);
+                }
+                
+                // Converted Type
+                const convertedType = convertType(rawType);
+                if (!scanResults.types[convertedType]) {
+                    scanResults.types[convertedType] = { count: 0, raw: rawType };
+                }
+                scanResults.types[convertedType].count++;
+            }
+        }
+        
+        // Scancontentcolumnin columnMarker
+        const content = parts.length >= 5 ? parts[4] : line;
+        
+        // Angle brackets <...>
+        const angleMatches = content.match(/<[^>]+>/g) || [];
+        angleMatches.forEach(m => {
+            if (!scanResults.angleBrackets[m]) {
+                scanResults.angleBrackets[m] = { count: 0, examples: [] };
+            }
+            scanResults.angleBrackets[m].count++;
+            if (scanResults.angleBrackets[m].examples.length < 2) {
+                scanResults.angleBrackets[m].examples.push(lineNum + 1);
+            }
+        });
+        
+        // Square brackets [...] (Non-page number)
+        const squareMatches = content.match(/\[[^\]]+\]/g) || [];
+        squareMatches.forEach(m => {
+            if (!scanResults.squareBrackets[m]) {
+                scanResults.squareBrackets[m] = { count: 0, examples: [] };
+            }
+            scanResults.squareBrackets[m].count++;
+        });
+        
+        // HTML Entity &...;
+        const entityMatches = content.match(/&[a-z]+\d*;/gi) || [];
+        entityMatches.forEach(m => {
+            if (!scanResults.specialEntities[m]) {
+                scanResults.specialEntities[m] = { count: 0 };
+            }
+            scanResults.specialEntities[m].count++;
+        });
+        
+        // Special symbol combination
+        const symbolMatches = content.match(/[!?%]{2,}/g) || [];
+        symbolMatches.forEach(m => {
+            if (!scanResults.specialSymbols[m]) {
+                scanResults.specialSymbols[m] = { count: 0 };
+            }
+            scanResults.specialSymbols[m].count++;
+        });
+    });
+    
+    renderScanResults();
+    document.getElementById('scan-section').classList.add('show');
+}
+
+function renderScanResults() {
+    // Statistics
+    const stats = [
+        { label: 'Type Type', count: Object.keys(scanResults.types).length },
+        { label: 'Original Type', count: Object.keys(scanResults.rawTypes).length },
+        { label: 'Angle brackets <>', count: Object.keys(scanResults.angleBrackets).length },
+        { label: 'Square brackets []', count: Object.keys(scanResults.squareBrackets).length },
+        { label: 'Entity &;', count: Object.keys(scanResults.specialEntities).length },
+        { label: 'Symbolcombination', count: Object.keys(scanResults.specialSymbols).length }
+    ];
+    
+    document.getElementById('scan-stats').innerHTML = stats.map(s => `
+        <div class="scan-stat">
+            <div class="scan-stat-value">${s.count}</div>
+            <div class="scan-stat-label">${s.label}</div>
+        </div>
+    `).join('');
+    
+    // Render each category
+    let gridHtml = '';
+    
+    // Type Type（Most important）
+    if (Object.keys(scanResults.types).length > 0) {
+        gridHtml += `
+            <div class="scan-category">
+                <h4>📋 Type TypeStatistics</h4>
+                <div class="scan-list">
+                    <table class="type-ref-table">
+                        <tr><th>Type</th><th>Original</th><th>meaning</th><th>count</th></tr>
+                        ${Object.entries(scanResults.types)
+                            .sort((a, b) => b[1].count - a[1].count)
+                            .map(([type, data]) => {
+                                const ref = TYPE_REFERENCE[type] || { meaning: '❓ Unknown' };
+                                return `<tr>
+                                    <td>${type}</td>
+                                    <td>${data.raw}</td>
+                                    <td>${ref.meaning}</td>
+                                    <td><span class="scan-count ${data.count >= 10 ? 'high' : ''}">${data.count}</span></td>
+                                </tr>`;
+                            }).join('')}
+                    </table>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Original Type
+    if (Object.keys(scanResults.rawTypes).length > 0) {
+        gridHtml += renderScanCategory('Original Type Format', '📑', scanResults.rawTypes, true);
+    }
+    
+    // Angle brackets
+    if (Object.keys(scanResults.angleBrackets).length > 0) {
+        gridHtml += renderScanCategory('Angle bracketsMarker &lt;...&gt;', '◇', scanResults.angleBrackets);
+    }
+    
+    // Square brackets
+    if (Object.keys(scanResults.squareBrackets).length > 0) {
+        gridHtml += renderScanCategory('Square bracketsMarker [...]', '□', scanResults.squareBrackets);
+    }
+    
+    // Entity
+    if (Object.keys(scanResults.specialEntities).length > 0) {
+        gridHtml += renderScanCategory('HTML Entity', '&', scanResults.specialEntities);
+    }
+    
+    // Symbol
+    if (Object.keys(scanResults.specialSymbols).length > 0) {
+        gridHtml += renderScanCategory('Symbolcombination', '⚡', scanResults.specialSymbols);
+    }
+    
+    document.getElementById('scan-grid').innerHTML = gridHtml;
+}
+
+function renderScanCategory(title, icon, data, isType = false) {
+    const sorted = Object.entries(data).sort((a, b) => b[1].count - a[1].count);
+    
+    let itemsHtml = sorted.map(([item, info]) => {
+        const countClass = info.count >= 10 ? 'high' : '';
+        const escapedItem = item.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        
+        let note = '';
+        if (isType) {
+            // Type Comment
+            const converted = convertType(item);
+            const ref = TYPE_REFERENCE[converted];
+            if (ref) note = `<span class="scan-note">→ ${converted} (${ref.meaning})</span>`;
+        } else {
+            // MarkerComment
+            note = getMarkerNote(item);
+        }
+        
+        return `
+            <div class="scan-item">
+                <span class="scan-text">${escapedItem}</span>
+                ${note}
+                <span class="scan-count ${countClass}">${info.count}</span>
+            </div>
+        `;
+    }).join('');
+    
+    return `
+        <div class="scan-category">
+            <h4>${icon} ${title}</h4>
+            <div class="scan-list">${itemsHtml}</div>
+        </div>
+    `;
+}
+
+function getMarkerNote(marker) {
+    const notes = {
+        '<$>': '<span class="scan-note">✅ Paragraph end</span>',
+        '<->': '<span class="scan-note">✅ Plant separator</span>',
+        '<!plant>': '<span class="scan-note">✅ Plant marker</span>',
+        '<!corr>': '<span class="scan-note">✅ Correction</span>',
+        '<!doodle>': '<span class="scan-note">✅ Doodle</span>'
+    };
+    
+    for (const [key, note] of Object.entries(notes)) {
+        if (marker.includes(key)) return note;
+    }
+    
+    if (/^\[[^\]:]+:[^\]]+\]$/.test(marker)) {
+        return '<span class="scan-note">✅ Options(Get first)</span>';
+    }
+    
+    if (/^<f\d+[rv]>$/.test(marker)) {
+        return '<span class="scan-note">✅ Page number</span>';
+    }
+    
+    if (marker.startsWith('<') && marker.endsWith('>')) {
+        return '<span class="scan-note" style="color: var(--warn-orange);">❓ To confirm</span>';
+    }
+    
+    return '';
+}
+
+function copyScanReport() {
+    if (!scanResults) {
+        alert('please firstScan！');
+        return;
+    }
+    
+    let report = `# CEVA Scan Report\n`;
+    report += `**Generated:** ${new Date().toISOString()}\n\n`;
+    
+    report += `## Type TypeStatistics\n\n`;
+    report += `| Type | OriginalFormat | meaning | count |\n`;
+    report += `|:-----|:---------|:-----|:----:|\n`;
+    Object.entries(scanResults.types)
+        .sort((a, b) => b[1].count - a[1].count)
+        .forEach(([type, data]) => {
+            const ref = TYPE_REFERENCE[type] || { meaning: '❓ Unknown' };
+            report += `| ${type} | ${data.raw} | ${ref.meaning} | ${data.count} |\n`;
+        });
+    
+    report += `\n## Angle bracketsMarker\n\n`;
+    report += `| Marker | count | Status |\n`;
+    report += `|:-----|:----:|:-----|\n`;
+    Object.entries(scanResults.angleBrackets)
+        .sort((a, b) => b[1].count - a[1].count)
+        .forEach(([marker, data]) => {
+            let status = '❓';
+            if (marker === '<$>') status = '✅ Paragraph end';
+            else if (marker.includes('<->')) status = '✅ Plant separator';
+            else if (marker.includes('<!')) status = '✅ commentMarker';
+            else if (/^<f\d+[rv]>$/.test(marker)) status = '✅ Page number';
+            report += `| \`${marker}\` | ${data.count} | ${status} |\n`;
+        });
+    
+    report += `\n---\n*KST Cleaner v1.11 · Kelly & Lyra/Claude*\n`;
+    
+    navigator.clipboard.writeText(report).then(() => {
+        alert('ScanreportCopied！');
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Parse Raw Data
+// ═══════════════════════════════════════════════════════════════════════════
+function parseRawData(text) {
+    const lines = text.split('\n');
+    const allPages = {};
+    let currentPage = null;
+    
+    for (const line of lines) {
+        const trimmed = line.trim();
+        
+        if (trimmed === 'Page:') {
+            currentPage = null;
+            continue;
+        }
+        
+        if (currentPage === null && /^f(\d+[rv]\d*|Ros)$/i.test(trimmed)) {
+            currentPage = trimmed;
+            if (!allPages[currentPage]) {
+                allPages[currentPage] = {};
+            }
+            continue;
+        }
+        
+        const pageMatch = trimmed.match(/^Page:\s*(f(?:\d+[rv]\d*|Ros))$/i);
+        if (pageMatch) {
+            currentPage = pageMatch[1].toLowerCase();
+            if (!allPages[currentPage]) {
+                allPages[currentPage] = {};
+            }
+            continue;
+        }
+        
+        if (!currentPage) continue;
+        if (trimmed.startsWith('Mode:')) continue;
+        if (trimmed.startsWith('Line') && trimmed.includes('Type') && trimmed.includes('Trans')) continue;
+        if (!trimmed) continue;
+        
+        const parts = line.split('\t');
+        if (parts.length < 5) continue;
+        
+        const lineNum = parts[0].trim();
+        const type = parts[1].trim();
+        const trans = parts[2].trim().toUpperCase();
+        const content = parts[4].trim();
+        
+        if (!lineNum || isNaN(parseInt(lineNum))) continue;
+        
+        const key = lineNum;
+        if (!allPages[currentPage][key]) {
+            allPages[currentPage][key] = { type: type, versions: {} };
+        }
+        
+        allPages[currentPage][key].versions[trans] = content;
+        if (!allPages[currentPage][key].type) {
+            allPages[currentPage][key].type = type;
+        }
+    }
+    
+    return allPages;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Type Conversion
+// ═══════════════════════════════════════════════════════════════════════════
+function convertType(rawType) {
+    if (!rawType) return 'P0';
+    const prefix = rawType.charAt(0);
+    const base = rawType.substring(1);
+    
+    if (prefix === '@') return base;           // @P0 → P0
+    if (prefix === '+') return base + 'c';     // +P0 → P0c
+    if (prefix === '=') return base;           // =Pt → Pt
+    if (prefix === '*') return base + 'f';     // *P0 → P0f
+    
+    return base || 'P0';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Cleaning Functions - v1.6 (Simplified)
+// ═══════════════════════════════════════════════════════════════════════════
+function cleanContent(contentH, contentA, contentY) {
+    let notes = [];
+    let source = 'H';
+    let cleaned = contentH || '';
+    
+    // ★ EVA_Raw recordactualuse of Originalversion（initialize as H）
+    let evaRaw = contentH || '';
+    
+    // ★ v1.11 fix：Detectif all versions are unreadable special characters (&uva###;)
+    const isAllUva = (contentH, contentA, contentY) => {
+        const uvaPattern = /^[?!<>\s]*(&uva\d+;|<[^>]+>)*[?!<>\s]*$/i;
+        const hasUva = /&uva\d+;/i;
+        // At least one version has &uva，and all non-empty versions match uva Mode
+        const versions = [contentH, contentA, contentY].filter(v => v && v.trim());
+        if (versions.length === 0) return false;
+        return versions.some(v => hasUva.test(v)) && 
+               versions.every(v => uvaPattern.test(v) || hasUva.test(v) || /^[?!%\s]+$/.test(v));
+    };
+    
+    // ★ likeif all are &uva，Extract best uva code
+    if (isAllUva(contentH, contentA, contentY)) {
+        const extractUva = (content) => {
+            const match = content?.match(/&uva(\d+);/i);
+            return match ? match[1] : null;
+        };
+        const uvaCode = extractUva(contentY) || extractUva(contentH) || extractUva(contentA) || 'UNK';
+        return {
+            evaKS: `[?${uvaCode}]`,
+            evaRaw: contentY || contentH || contentA || '',
+            hasStar: false,
+            source: 'UVA',
+            notes: 'unreadable'
+        };
+    }
+    
+    // ★ Detect <$> Paragraph endMarker（first use H Detect，subsequent fallback whenwill re-Detect）
+    let hasStar = evaRaw.includes('<$>');
+    
+    // If H is empty, use A or Y
+    if (!cleaned || /^[!?%\s]+$/.test(cleaned)) {
+        if (contentA) {
+            cleaned = contentA;
+            evaRaw = contentA;  // ★ Update EVA_Raw
+            hasStar = evaRaw.includes('<$>');  // ★ re-Detect <$>
+            source = 'A';
+            notes.push('H→A');
+        } else if (contentY) {
+            cleaned = contentY;
+            evaRaw = contentY;  // ★ Update EVA_Raw
+            hasStar = evaRaw.includes('<$>');  // ★ re-Detect <$>
+            source = 'Y';
+            notes.push('H→Y');
+        }
+    }
+    
+    // Check for %%%%% (entire line replacement)
+    if (/%{3,}/.test(cleaned)) {
+        if (contentA && !/%{3,}/.test(contentA)) {
+            cleaned = contentA;
+            evaRaw = contentA;  // ★ v1.8 fix：Update EVA_Raw
+            hasStar = evaRaw.includes('<$>');  // ★ re-Detect <$>
+            source = 'A';
+            notes.push('%→A');
+        } else if (contentY && !/%{3,}/.test(contentY)) {
+            cleaned = contentY;
+            evaRaw = contentY;  // ★ v1.8 fix：Update EVA_Raw
+            hasStar = evaRaw.includes('<$>');  // ★ re-Detect <$>
+            source = 'Y';
+            notes.push('%→Y');
+        }
+    }
+    
+    // Remove all <...> markers (including <$>，but already recorded)
+    cleaned = cleaned.replace(/<[^>]+>/g, '');
+    
+    // ★ Process A versionFormat：{ch} → ch, {iin} → iin, {sh} → sh etc
+    cleaned = cleaned.replace(/\{([a-z]+)\}/gi, '$1');
+    
+    // ★ Process A version ofnumbercharvariantMarker：a1 → a, d2 → d, y1 → y etc
+    // but keep f1, f2 this type（because might be ligature）
+    cleaned = cleaned.replace(/([a-eghj-z])(\d)(?=[^0-9]|$)/gi, '$1');
+    
+    // &uva###; → [?###]
+    cleaned = cleaned.replace(/&uva(\d+);/g, '[?$1]');
+    
+    // [X:Y] → take first option X
+    cleaned = cleaned.replace(/\[([^:\]]+):[^\]]+\]/g, '$1');
+    
+    // Remove subscript numbers
+    cleaned = cleaned.replace(/[₁₂₃₄₅₆₇₈₉₀]/g, '');
+    
+    // Remove apostrophes and normalize commas
+    cleaned = cleaned.replace(/'/g, '');
+    cleaned = cleaned.replace(/,/g, '.');
+    
+    // Handle ! markers - keep character after !
+    cleaned = cleaned.replace(/!+([a-z]+)/gi, '$1');
+    cleaned = cleaned.replace(/!/g, '');
+    
+    // Process ? markers
+    const wordsH = cleaned.split('.');
+    const wordsA = contentA ? contentA.replace(/,/g, '.').replace(/'/g, '').split('.') : [];
+    const wordsY = contentY ? contentY.replace(/,/g, '.').replace(/'/g, '').split('.') : [];
+    
+    let resultWords = [];
+    let usedFallback = false;
+    
+    for (let i = 0; i < wordsH.length; i++) {
+        let word = wordsH[i].trim();
+        
+        if (!word) continue;
+        
+        // Check if word has ? (needs A/Y verification)
+        if (/\?/.test(word) && !/\[\?\d+\]/.test(word)) {
+            let wordA = (wordsA[i] || '').replace(/[₁₂₃₄₅₆₇₈₉₀]/g, '').replace(/'/g, '').trim();
+            let wordY = (wordsY[i] || '').replace(/[₁₂₃₄₅₆₇₈₉₀]/g, '').replace(/'/g, '').trim();
+            
+            if (wordY && !/[?!%]/.test(wordY) && !/&uva/.test(wordY)) {
+                word = wordY;
+                usedFallback = true;
+                if (source === 'H') source = 'H→Y';
+            } else if (wordA && !/[?!%]/.test(wordA) && !/&uva/.test(wordA)) {
+                word = wordA;
+                usedFallback = true;
+                if (source === 'H') source = 'H→A';
+            } else {
+                word = word.replace(/\?/g, '');
+            }
+        }
+        
+        // Clean up
+        word = word.replace(/[<>]/g, '');
+        
+        if (word.trim()) {
+            resultWords.push(word.trim());
+        }
+    }
+    
+    cleaned = resultWords.join('.');
+    
+    // Clean up multiple dots
+    cleaned = cleaned.replace(/\.+/g, '.').replace(/^\.|\.$/g, '');
+    
+    if (source === 'H' && !usedFallback && notes.length === 0) {
+        notes.push('clean');
+    } else if (usedFallback && notes.length === 0) {
+        notes.push('fixed');
+    }
+    
+    // ★ v1.11 fix：Based on final source re-Detect <$>
+    // when word-by-word fallback to A/Y when，Need to check A/Y version of <$>
+    if (source === 'H→A' && contentA) {
+        hasStar = hasStar || contentA.includes('<$>');
+    } else if (source === 'H→Y' && contentY) {
+        hasStar = hasStar || contentY.includes('<$>');
+    }
+    
+    // ★ v1.11 fix：Clean EVA_Raw special markers in
+    let cleanedRaw = evaRaw;
+    cleanedRaw = cleanedRaw.replace(/<[^>]+>/g, '');      // Removeall <...> including <$>, <!...>
+    cleanedRaw = cleanedRaw.replace(/\?+/g, '');          // Remove ???
+    cleanedRaw = cleanedRaw.replace(/!+/g, '');           // Remove !!!
+    cleanedRaw = cleanedRaw.replace(/[₁₂₃₄₅₆₇₈₉₀]/g, ''); // Removesubscript digits
+    cleanedRaw = cleanedRaw.replace(/'/g, '');            // Remove apostrophe
+    cleanedRaw = cleanedRaw.replace(/,/g, '.');           // Comma to dot
+    cleanedRaw = cleanedRaw.replace(/\.+/g, '.').replace(/^\.|\.$/g, '');  // Cleanextra dots
+    
+    return {
+        evaKS: cleaned,
+        evaRaw: cleanedRaw,  // ★ CleanafterOriginalversion
+        hasStar: hasStar,    // ★ <$> Paragraph endMarker
+        source,
+        notes: notes.join('; ') || 'clean'
+    };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Main Processing
+// ═══════════════════════════════════════════════════════════════════════════
+function processClean() {
+    const rawInput = document.getElementById('raw-input').value;
+    
+    if (!rawInput.trim()) {
+        alert('Please enterOriginalData！');
+        return;
+    }
+    
+    const progressBar = document.getElementById('progress-bar');
+    const progressFill = document.getElementById('progress-fill');
+    progressBar.classList.add('active');
+    progressFill.style.width = '10%';
+    
+    setTimeout(() => {
+        const allPages = parseRawData(rawInput);
+        progressFill.style.width = '30%';
+        
+        cleanResults = [];
+        detectedTypes = {};
+        detectedPages = Object.keys(allPages).sort((a, b) => {
+            // ProcessspecialPage number（like fRos）- withoutnumberchar of puttolast
+            const matchA = a.match(/\d+/);
+            const matchB = b.match(/\d+/);
+            const numA = matchA ? parseInt(matchA[0]) : 999;
+            const numB = matchB ? parseInt(matchB[0]) : 999;
+            if (numA !== numB) return numA - numB;
+            // when same number：r in v before
+            const hasRA = /r/i.test(a);
+            const hasRB = /r/i.test(b);
+            if (hasRA !== hasRB) return hasRA ? -1 : 1;
+            // ProcesssubPage number (f86v3 vs f86v4)
+            const subA = a.match(/[rv](\d+)$/i);
+            const subB = b.match(/[rv](\d+)$/i);
+            const subNumA = subA ? parseInt(subA[1]) : 0;
+            const subNumB = subB ? parseInt(subB[1]) : 0;
+            return subNumA - subNumB;
+        });
+        
+        let stats = { pages: detectedPages.length, total: 0, clean: 0, fixed: 0, fallback: 0 };
+        
+        progressFill.style.width = '50%';
+        
+        for (const page of detectedPages) {
+            const pageData = allPages[page];
+            const lineNums = Object.keys(pageData).sort((a, b) => parseInt(a) - parseInt(b));
+            
+            for (const lineNum of lineNums) {
+                const group = pageData[lineNum];
+                const versions = group.versions;
+                
+                const contentH = versions['H'] || '';
+                const contentA = versions['A'] || '';
+                const contentY = versions['Y'] || '';
+                
+                if (!contentH && !contentA && !contentY) continue;
+                
+                const result = cleanContent(contentH, contentA, contentY);
+                const type = convertType(group.type);
+                
+                if (!result.evaKS) continue;
+                
+                // Statistics Type
+                if (!detectedTypes[type]) {
+                    detectedTypes[type] = 0;
+                }
+                detectedTypes[type]++;
+                
+                cleanResults.push({
+                    page: page,
+                    line: lineNum,
+                    evaKS: result.evaKS,
+                    type: type,
+                    star: result.hasStar ? '<$>' : '',  // ★ Paragraph endMarker
+                    evaRaw: result.evaRaw,
+                    source: result.source,
+                    notes: result.notes
+                });
+                
+                stats.total++;
+                if (result.notes === 'clean') stats.clean++;
+                else if (result.source === 'H' || result.source.startsWith('H→')) stats.fixed++;
+                else stats.fallback++;
+            }
+        }
+        
+        progressFill.style.width = '80%';
+        
+        document.getElementById('stat-pages').textContent = stats.pages;
+        document.getElementById('stat-lines').textContent = stats.total;
+        document.getElementById('stat-clean').textContent = stats.clean;
+        document.getElementById('stat-fixed').textContent = stats.fixed;
+        document.getElementById('stat-fallback').textContent = stats.fallback;
+        document.getElementById('stat-types').textContent = Object.keys(detectedTypes).length;
+        
+        // Page chips
+        document.getElementById('page-chips').innerHTML = detectedPages.map(p => 
+            `<span class="page-chip">${p}</span>`
+        ).join('');
+        
+        // Type chips
+        document.getElementById('type-chips').innerHTML = Object.entries(detectedTypes)
+            .sort((a, b) => b[1] - a[1])
+            .map(([type, count]) => {
+                const ref = TYPE_REFERENCE[type];
+                const title = ref ? ref.meaning : 'Unknown';
+                return `<span class="page-chip type-chip" title="${title}">${type} (${count})</span>`;
+            }).join('');
+        
+        // Table
+        const tbody = document.getElementById('results-body');
+        tbody.innerHTML = '';
+        
+        for (const row of cleanResults) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="col-page">${row.page}</td>
+                <td>${row.line}</td>
+                <td class="col-eva">${escapeHtml(row.evaKS)}</td>
+                <td class="col-type">${row.type}</td>
+                <td class="col-star">${row.star ? '◆' : ''}</td>
+                <td class="col-raw">${escapeHtml(row.evaRaw).substring(0, 40)}${row.evaRaw.length > 40 ? '…' : ''}</td>
+                <td class="col-source">${row.source}</td>
+                <td class="col-notes">${row.notes}</td>
+            `;
+            tbody.appendChild(tr);
+        }
+        
+        progressFill.style.width = '100%';
+        
+        setTimeout(() => {
+            progressBar.classList.remove('active');
+            document.getElementById('results-section').style.display = 'block';
+        }, 300);
+        
+    }, 50);
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Export Functions - 8 Columns (keep <$> Paragraph endMarker)
+// ═══════════════════════════════════════════════════════════════════════════
+function generateTSV() {
+    // 🆕 v1.11: 9 column (Add Section)
+    // Page, Section, Line, EVA_KST, Type, <$>, EVA_Raw, Source, Notes
+    let content = 'Page\tSection\tLine\tEVA_KST\tType\t<$>\tEVA_Raw\tSource\tNotes\n';
+    for (const row of cleanResults) {
+        const section = getPageSection(row.page);
+        content += `${row.page}\t${section}\t${row.line}\t${row.evaKS}\t${row.type}\t${row.star}\t${row.evaRaw}\t${row.source}\t${row.notes}\n`;
+    }
+    return content;
+}
+
+function exportTSV() {
+    if (cleanResults.length === 0) return;
+    
+    const content = generateTSV();
+    const blob = new Blob([content], { type: 'text/tab-separated-values;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    
+    const firstPage = detectedPages[0] || 'unknown';
+    const lastPage = detectedPages[detectedPages.length - 1] || 'unknown';
+    const timestamp = new Date().toISOString().slice(0,10);
+    
+    a.download = `KST_Clean_${firstPage}-${lastPage}_${timestamp}.tsv`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function copyTSV() {
+    if (cleanResults.length === 0) return;
+    
+    const content = generateTSV();
+    navigator.clipboard.writeText(content).then(() => {
+        alert(`Copied ${cleanResults.length} linestoclipboard！\n(9column TSV Format：contains <$> Paragraph end)`);
+    });
+}
+
+function clearAll() {
+    document.getElementById('raw-input').value = '';
+    document.getElementById('results-section').style.display = 'none';
+    document.getElementById('scan-section').classList.remove('show');
+    cleanResults = [];
+    detectedPages = [];
+    detectedTypes = {};
+    scanResults = null;
+}
+    </script>
+</body>
+</html>

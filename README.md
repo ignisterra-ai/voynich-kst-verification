@@ -185,7 +185,7 @@ Contributors who provide valuable verification will be acknowledged in:
 - 📜 **Patent filings** - Contributor acknowledgment section
 - ⭐ **This repository** - Listed in [ACKNOWLEDGMENTS.md](ACKNOWLEDGMENTS.md)
 
-**Note**: We offer **acknowledgment**, not co-authorship. This is intentional — we welcome people who genuinely want to verify, not those seeking credit.
+**Note:** We offer acknowledgment, not co-authorship. We welcome researchers who genuinely contribute to verification work.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 

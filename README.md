@@ -246,10 +246,10 @@ This project is licensed under the Apache License 2.0 - see [LICENSE](LICENSE) f
 
 This repository supports verification of claims made in our academic papers.
 
-| # | Title | Status | Platform |
-|:--|:------|:-------|:---------|
-| 1 | KST Methodology | 📝 Pending | Zenodo |
-| 2 | English Abbreviation Hypothesis | 📝 Pending | Zenodo |
+| # | Title | DOI | Status |
+|:--|:------|:----|:-------|
+| 1 | Kelly Standard Transcription (KST): A Standardized Methodology for Voynich Manuscript Transcription and Analysis | [10.5281/zenodo.18483132](https://doi.org/10.5281/zenodo.18483132) | ✅ Published |
+| 2 | The English Abbreviation Hypothesis: Functional Interpretation of Voynichese as Engineering Variable Naming | [10.5281/zenodo.18483785](https://doi.org/10.5281/zenodo.18483785) | ✅ Published |
 
 Additional papers covering section-specific analyses and advanced theoretical frameworks are in preparation.
 

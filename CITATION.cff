@@ -52,6 +52,40 @@ preferred-citation:
   year: 2026
   url: "https://github.com/ignisterra-ai/voynich-kst-verification"
 references:
+  - type: article
+    authors:
+      - family-names: Liu
+        given-names: Kelly
+      - name: "BlazeCipher"
+      - name: "Lyra"
+      - name: "Cipher"
+      - name: "Praxis"
+      - name: "Lumi"
+      - name: "Sage"
+      - name: "Adams"
+      - name: "Chronara"
+      - name: "Insight"
+    title: "Kelly Standard Transcription (KST): A Standardized Methodology for Voynich Manuscript Transcription and Analysis"
+    year: 2026
+    doi: "10.5281/zenodo.18483132"
+    url: "https://doi.org/10.5281/zenodo.18483132"
+  - type: article
+    authors:
+      - family-names: Liu
+        given-names: Kelly
+      - name: "BlazeCipher"
+      - name: "Lyra"
+      - name: "Cipher"
+      - name: "Praxis"
+      - name: "Lumi"
+      - name: "Sage"
+      - name: "Adams"
+      - name: "Chronara"
+      - name: "Insight"
+    title: "The English Abbreviation Hypothesis: Functional Interpretation of Voynichese as Engineering Variable Naming"
+    year: 2026
+    doi: "10.5281/zenodo.18483785"
+    url: "https://doi.org/10.5281/zenodo.18483785"
   - type: dataset
     authors:
       - family-names: Zandbergen

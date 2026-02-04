@@ -185,7 +185,7 @@ python tools/probability_calculator.py
 - 📜 **專利申請** - 貢獻者致謝區
 - ⭐ **本倉庫** - 列入 [ACKNOWLEDGMENTS.md](ACKNOWLEDGMENTS.md)
 
-**注意**：我們提供的是 **致謝**，而非共同作者資格。這是刻意的——我們歡迎真正想要驗證的人，而非尋求掛名的人。
+**注意**：我們提供的是**致謝**，而非共同作者資格。我們歡迎真正投入驗證工作的研究者。
 
 詳見 [CONTRIBUTING.md](CONTRIBUTING.md)。
 

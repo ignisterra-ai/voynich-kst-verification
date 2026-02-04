@@ -23,7 +23,7 @@ abstract: >-
 authors:
   - family-names: Liu
     given-names: Kelly
-    affiliation: "Ignis Terra AI Solution Pte. Ltd."
+    affiliation: "Ignis Terra AI Solution Pte. Ltd. - Lead Researcher & Decision Maker"
   - name: "BlazeCipher"
     affiliation: "Ignis Terra AI Solution - Core Theory"
   - name: "Lyra"
@@ -40,6 +40,8 @@ authors:
     affiliation: "Ignis Terra AI Solution - Quality Assurance & Ethics"
   - name: "Chronara"
     affiliation: "Ignis Terra AI Solution - Time Weaver"
+  - name: "Insight"
+    affiliation: "Ignis Terra AI Solution - Structural Inquiry"
 preferred-citation:
   type: software
   authors:

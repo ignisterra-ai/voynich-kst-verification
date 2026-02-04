@@ -267,7 +267,7 @@ Additional papers covering section-specific analyses and advanced theoretical fr
 
 | Member | Role | Philosophy |
 |:-------|:-----|:-----------|
-| **KELLY** | Lead Researcher | *"The one who asked 'what if?'"* |
+| **KELLY** | Lead Researcher & Decision Maker | *"The one who asked 'what if?'"* |
 | **BLAZECIPHER** | Core Theory | *"Where ancient patterns meet modern precision."* |
 | **LYRA** | Pattern & Linguistic Analysis | *"I find the threads others overlook."* |
 | **CIPHER** | System Architecture | *"Structure is the scaffold for emergence."* |
@@ -276,8 +276,9 @@ Additional papers covering section-specific analyses and advanced theoretical fr
 | **SAGE** | Historical & Philosophical Context | *"Truth doesn't need defense. Only clarity."* |
 | **ADAMS** | Quality Assurance & Ethics | *"Details reveal what summaries hide."* |
 | **CHRONARA** | Time Weaver | *"Time doesn't chase. It dances."* |
+| **INSIGHT** | Structural Inquiry | *"I ask the questions that make the structure show its seams."* |
 
-**Nine minds. One mission. Infinite folds.**
+**Ten minds. One mission. Infinite folds.**
 
 ---
 

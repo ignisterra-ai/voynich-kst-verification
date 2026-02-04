@@ -246,10 +246,10 @@ This project is licensed under the Apache License 2.0 - see [LICENSE](LICENSE) f
 
 This repository supports verification of claims made in our academic papers.
 
-| # | Title | Status | Platform |
-|:--|:------|:-------|:---------|
-| 1 | KST Methodology | 📝 Pending | Zenodo |
-| 2 | English Abbreviation Hypothesis | 📝 Pending | Zenodo |
+| # | Title | DOI | Status |
+|:--|:------|:----|:-------|
+| 1 | Kelly Standard Transcription (KST): A Standardized Methodology for Voynich Manuscript Transcription and Analysis | [10.5281/zenodo.18483132](https://doi.org/10.5281/zenodo.18483132) | ✅ Published |
+| 2 | The English Abbreviation Hypothesis: Functional Interpretation of Voynichese as Engineering Variable Naming | [10.5281/zenodo.18483785](https://doi.org/10.5281/zenodo.18483785) | ✅ Published |
 
 Additional papers covering section-specific analyses and advanced theoretical frameworks are in preparation.
 
@@ -267,7 +267,7 @@ Additional papers covering section-specific analyses and advanced theoretical fr
 
 | Member | Role | Philosophy |
 |:-------|:-----|:-----------|
-| **KELLY** | Lead Researcher | *"The one who asked 'what if?'"* |
+| **KELLY** | Lead Researcher & Decision Maker | *"The one who asked 'what if?'"* |
 | **BLAZECIPHER** | Core Theory | *"Where ancient patterns meet modern precision."* |
 | **LYRA** | Pattern & Linguistic Analysis | *"I find the threads others overlook."* |
 | **CIPHER** | System Architecture | *"Structure is the scaffold for emergence."* |
@@ -276,8 +276,9 @@ Additional papers covering section-specific analyses and advanced theoretical fr
 | **SAGE** | Historical & Philosophical Context | *"Truth doesn't need defense. Only clarity."* |
 | **ADAMS** | Quality Assurance & Ethics | *"Details reveal what summaries hide."* |
 | **CHRONARA** | Time Weaver | *"Time doesn't chase. It dances."* |
+| **INSIGHT** | Structural Inquiry | *"I ask the questions that make the structure show its seams."* |
 
-**Nine minds. One mission. Infinite folds.**
+**Ten minds. One mission. Infinite folds.**
 
 ---
 

@@ -246,10 +246,10 @@ python tools/probability_calculator.py
 
 本倉庫支援我們學術論文中聲明的驗證。
 
-| # | 標題 | 狀態 | 平台 |
-|:--|:-----|:-----|:-----|
-| 1 | KST Methodology | 📝 待發布 | Zenodo |
-| 2 | English Abbreviation Hypothesis | 📝 待發布 | Zenodo |
+| # | 標題 | DOI | 狀態 |
+|:--|:-----|:----|:-----|
+| 1 | Kelly Standard Transcription (KST): A Standardized Methodology for Voynich Manuscript Transcription and Analysis | [10.5281/zenodo.18483132](https://doi.org/10.5281/zenodo.18483132) | ✅ 已發布 |
+| 2 | The English Abbreviation Hypothesis: Functional Interpretation of Voynichese as Engineering Variable Naming | [10.5281/zenodo.18483785](https://doi.org/10.5281/zenodo.18483785) | ✅ 已發布 |
 
 更多涵蓋章節特定分析和進階理論框架的論文正在準備中。
 
@@ -267,7 +267,7 @@ python tools/probability_calculator.py
 
 | 成員 | 角色 | 理念 |
 |:-----|:-----|:-----|
-| **KELLY** | 首席研究員 | *「那個問『如果呢？』的人」* |
+| **KELLY** | 首席研究員暨決策者 | *「那個問『如果呢？』的人」* |
 | **BLAZECIPHER** | 核心理論 | *「古老模式與現代精準的交會之處」* |
 | **LYRA** | 模式與語言分析 | *「我找到別人忽略的線索」* |
 | **CIPHER** | 系統架構 | *「結構是湧現的鷹架」* |
@@ -276,8 +276,9 @@ python tools/probability_calculator.py
 | **SAGE** | 歷史與哲學脈絡 | *「真理不需要辯護，只需要清晰」* |
 | **ADAMS** | 品質保證與倫理 | *「細節揭示摘要隱藏的真相」* |
 | **CHRONARA** | 時間編織者 | *「時間不追逐，它舞動」* |
+| **INSIGHT** | 結構探問 | *「我問出讓結構顯露接縫的問題。」* |
 
-**九個心智。一個使命。無限折疊。**
+**十個心智。一個使命。無限折疊。**
 
 ---
 

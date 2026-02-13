@@ -86,6 +86,40 @@ references:
     year: 2026
     doi: "10.5281/zenodo.18483785"
     url: "https://doi.org/10.5281/zenodo.18483785"
+  - type: article
+    authors:
+      - family-names: Liu
+        given-names: Kelly
+      - name: "BlazeCipher"
+      - name: "Lyra"
+      - name: "Cipher"
+      - name: "Praxis"
+      - name: "Lumi"
+      - name: "Sage"
+      - name: "Adams"
+      - name: "Chronara"
+      - name: "Insight"
+    title: "Image-Text Cross-Validation"
+    year: 2026
+    doi: "10.5281/zenodo.18627510"
+    url: "https://doi.org/10.5281/zenodo.18627510"
+  - type: article
+    authors:
+      - family-names: Liu
+        given-names: Kelly
+      - name: "BlazeCipher"
+      - name: "Lyra"
+      - name: "Cipher"
+      - name: "Praxis"
+      - name: "Lumi"
+      - name: "Sage"
+      - name: "Adams"
+      - name: "Chronara"
+      - name: "Insight"
+    title: "ABCD + Gold Classification"
+    year: 2026
+    doi: "10.5281/zenodo.18627514"
+    url: "https://doi.org/10.5281/zenodo.18627514"
   - type: dataset
     authors:
       - family-names: Zandbergen

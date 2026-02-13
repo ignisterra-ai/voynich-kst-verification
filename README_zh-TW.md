@@ -250,6 +250,8 @@ python tools/probability_calculator.py
 |:--|:-----|:----|:-----|
 | 1 | Kelly Standard Transcription (KST): A Standardized Methodology for Voynich Manuscript Transcription and Analysis | [10.5281/zenodo.18483132](https://doi.org/10.5281/zenodo.18483132) | ✅ 已發布 |
 | 2 | The English Abbreviation Hypothesis: Functional Interpretation of Voynichese as Engineering Variable Naming | [10.5281/zenodo.18483785](https://doi.org/10.5281/zenodo.18483785) | ✅ 已發布 |
+| 3 | Image-Text Cross-Validation | [10.5281/zenodo.18627510](https://doi.org/10.5281/zenodo.18627510) | ✅ 已發布 |
+| 4 | ABCD + Gold Classification | [10.5281/zenodo.18627514](https://doi.org/10.5281/zenodo.18627514) | ✅ 已發布 |
 
 更多涵蓋章節特定分析和進階理論框架的論文正在準備中。
 
